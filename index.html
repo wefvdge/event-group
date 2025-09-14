@@ -250,6 +250,74 @@
             background-color: var(--secondary-color);
             color: white;
         }
+
+        .members-section {
+            background-color: var(--light-color);
+            padding: 3rem 0;
+        }
+        
+        .members-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .member-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            text-align: center;
+            flex: 0 0 calc(25% - 2rem);
+            min-width: 200px;
+            max-width: 250px;
+        }
+        
+        .member-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .member-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .member-info {
+            padding: 1.5rem;
+        }
+        
+        .member-name {
+            color: var(--primary-color);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+        
+        .member-role {
+            color: var(--dark-color);
+            font-style: italic;
+            margin: 0 0 1rem 0;
+        }
+        
+        .member-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .member-link {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .member-link:hover {
+            color: var(--primary-color);
+        }
         
         .demo-gallery {
             display: grid;
@@ -296,7 +364,7 @@
             }
             
             .hero {
-                height: 50vh;
+                height: 40vh;
             }
 
             .pub-item {
@@ -306,6 +374,32 @@
             .pub-image {
                 max-width: 200px;
                 margin-bottom: 1rem;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .logo-container {
+                width: 100px;
+            }
+            
+            .member-card {
+                flex: 0 0 calc(50% - 2rem);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-container {
+                width: 80px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .member-card {
+                flex: 0 0 100%;
             }
         }
     </style>
@@ -360,10 +454,84 @@
             </div>
         </section>
         
+        <section id="members" class="members-section">
+            <h2 class="section-title">Group Members</h2>
+            <div class="members-container">
+                <div class="member-card">
+                    <img src="https://person.zju.edu.cn/person//attachments/2018-07/0729121046-1529928802.jpg" alt="Professor Qian Zheng" class="member-image">
+                    <div class="member-info">
+                        <h3 class="member-name">Gang Pan</h3>
+                        <p class="member-role">Professor</p>
+                        <div class="member-links">
+                            <a href="https://scholar.google.com.hk/citations?user=NWqnXNEAAAAJ&hl=zh-CN" class="member-link" title="Google Scholar"><i class="fab fa-google"></i></a>
+                            <a href="mailto:gpan@zju.edu.cn" class="member-link" title="Email"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="member-card">
+                    <img src="https://person.zju.edu.cn/person//attachments/2025-03/0331110109-2082869161.jpg" alt="Dr. Zehao Chen" class="member-image">
+                    <div class="member-info">
+                        <h3 class="member-name">Huajin Tang</h3>
+                        <p class="member-role">Professor</p>
+                        <div class="member-links">
+                            <a href="https://scholar.google.com/citations?user=U041O4QAAAAJ&hl=zh-CN&oi=ao" class="member-link" title="Google Scholar"><i class="fab fa-google"></i></a>
+                            <a href="mailto:htang@zju.edu.cn" class="member-link" title="Email"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="member-card">
+                    <img src="https://person.zju.edu.cn/person//attachments/2018-07/0728102035-1010028996.jpg" alt="De Ma" class="member-image">
+                    <div class="member-info">
+                        <h3 class="member-name">De Ma</h3>
+                        <p class="member-role">Associate Professor</p>
+                        <div class="member-links">
+                            <a href="https://scholar.google.com/citations?user=example6" class="member-link" title="Google Scholar"><i class="fab fa-google"></i></a>
+                            <a href="mailto:made@zju.edu.cn" class="member-link" title="Email"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="member-card">
+                    <img src="https://person.zju.edu.cn/person//attachments/2025-01/0109010526-461458251.jpg" alt="Professor Qian Zheng" class="member-image">
+                    <div class="member-info">
+                        <h3 class="member-name">Qian Zheng</h3>
+                        <p class="member-role">Assistant Professor</p>
+                        <div class="member-links">
+                            <a href="https://scholar.google.com.hk/citations?hl=zh-CN&user=ztWK59MAAAAJ" class="member-link" title="Google Scholar"><i class="fab fa-google"></i></a>
+                            <a href="https://q-zh.github.io/" class="member-link" title="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="mailto:qianzheng@zju.edu.cn" class="member-link" title="Email"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+                
+
         <section id="publications">
             <h2 class="section-title">Representative Research Achievements</h2>
             <div class="publications">
                 <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-image-container">
+                            <img src="./static/ICCV25-liu.png" alt="Dynamic token pruning illustration" class="pub-image">
+                        </div>
+                        <div class="pub-content">
+                            <div class="pub-title">E-NeMF: Event-based Neural Motion Field for Novel Space-time View Synthesis of Dynamic Scenes</div>
+                            <div class="pub-authors">Yan Liu, Zehao Chen, Haojie Yan, De Ma, Huajin Tang, Qian Zheng📧, Gang Pan📧.</div>
+                            <div class="pub-venue">ICCV 2025</div>
+                            <ul>
+                                <li>Mitigating the impact of noise and sparsity brought by event streams for event-guided novel view-time synthesis </li>
+                            </ul>
+                            <div class="pub-links">
+                                <a href="https://iccv.thecvf.com/virtual/2025/poster/2080" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
+                                <a href="https://github.com/zju-bmi-lab/EventCamera" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
+                            </div>
+                        </div>
+                    </li>
+
                     <li class="pub-item">
                         <div class="pub-image-container">
                             <img src="./static/IJCAI25.png" alt="Dynamic token pruning illustration" class="pub-image">
@@ -377,8 +545,8 @@
                                 <li>Reconstruct the motion mask field and separate static and dynamic regions. </li>
                             </ul>
                             <div class="pub-links">
-                                <a href="#" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
-                                <a href="#" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
+                                <a href="https://ijcai-preprints.s3.us-west-1.amazonaws.com/2025/1781.pdf" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
+                                <a href="https://github.com/zju-bmi-lab/EDyGS" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
                             </div>
                         </div>
                     </li>
@@ -396,8 +564,8 @@
                                 <li>Excel in handling large motion scenarios. </li>
                             </ul>
                             <div class="pub-links">
-                                <a href="#" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
-                                <a href="#" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
+                                <a href="https://ojs.aaai.org/index.php/AAAI/article/view/32983" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
+                                <a href="https://github.com/hjyyyd/EvSTVSR" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
                             </div>
                         </div>
                     </li>
@@ -415,8 +583,8 @@
                                 <li>Achieve LDR-to-HDR transformation with single-exposure LDR frames. </li>
                             </ul>
                             <div class="pub-links">
-                                <a href="#" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
-                                <a href="#" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
+                                <a href="https://ojs.aaai.org/index.php/AAAI/article/view/32237" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
+                                <a href="https://github.com/Zehaoc/EvHDR-GS" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
                             </div>
                         </div>
                     </li>
@@ -434,8 +602,8 @@
                                 <li>Reconstruct Camera Response Function (CRF) from single-exposure images. </li>
                             </ul>
                             <div class="pub-links">
-                                <a href="#" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
-                                <a href="#" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
+                                <a href="https://ojs.aaai.org/index.php/AAAI/article/view/32238" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
+                                <a href="https://github.com/Zehaoc/EvHDR-NeRF" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
                             </div>
                         </div>
                     </li>
@@ -454,26 +622,31 @@
                                 <li>Event-guided intrinsic decomposition framework enables relighting under extreme conditions. </li>
                             </ul>
                             <div class="pub-links">
-                                <a href="#" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
-                                <a href="#" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
+                                <a href="https://dl.acm.org/doi/10.1145/3664647.3681133" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
+                                <a href="https://github.com/Zehaoc/Event-ID" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="pub-item">
+                        <div class="pub-image-container">
+                            <img src="./static/CVPR21-chen.png" alt="Dynamic token pruning illustration" class="pub-image">
+                        </div>
+                        <div class="pub-content">
+                            <div class="pub-title">Indoor Lighting Estimation using an Event Camera</div>
+                            <div class="pub-authors">Zehao Chen*, Qian Zheng*, Peisong Niu, Huajin Tang, Gang Pan📧.</div>
+                            <div class="pub-venue">CVPR 2021</div>
+                            <ul>
+                                <li>Event-based model that achieve superior performance for lighting estimation. </li>
+                                <li>Event camera for alleviating the intensity-distance ambiguity for indoor lighting estimation.  </li>
+                            </ul>
+                            <div class="pub-links">
+                                <a href="https://openaccess.thecvf.com/content/CVPR2021/papers/Chen_Indoor_Lighting_Estimation_Using_an_Event_Camera_CVPR_2021_paper.pdf" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
+                                <a href="https://github.com/Zehaoc/Event-LE" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
                             </div>
                         </div>
                     </li>
                 </ul>
-            </div>
-        </section>
-        
-        <section id="collaboration">
-            <h2 class="section-title">Collaboration Opportunities</h2>
-            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-                <p>We welcome scholars, students, and industry partners interested in Event-based vision to contact us.</p>
-                <!-- <p>Currently open research directions include:</p>
-                <ul style="text-align: left; display: inline-block;">
-                    <li>Hardware-efficient implementation of Vision Transformers</li>
-                    <li>Cross-modal Transformer research</li>
-                    <li>Applications of Vision Transformers in medical image analysis</li>
-                </ul> -->
-                <p style="margin-top: 1.5rem;">Please contact: <a href="qianzheng@zju.edu.cn" style="color: var(--secondary-color);">qianzheng@zju.edu.cn</a></p>
             </div>
         </section>
     </div>
@@ -481,13 +654,7 @@
     <footer>
         <div class="container">
             <p>&copy; 2025 Event-based vision group - ZJU-BMI-LAB </p>
-            <div style="margin-top: 1rem;">
-                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-github"></i></a>
-                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-twitter"></i></a>
-                <a href="#" style="color: white; margin: 0 10px;"><i class="fas fa-envelope"></i></a>
-            </div>
         </div>
     </footer>
 </body>
-
 </html>
