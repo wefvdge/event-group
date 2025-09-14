@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event-based vision - ZJU-BMI-LAB</title>
+    <style>
+        :root {
+            --primary-color: #679bcf;
+            --secondary-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --highlight-color: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            display: block;
+            font-size: 4em;
+            margin-top: -0.67em;
+            margin-bottom: 0.67em;
+            margin-left: 0;
+            margin-right: 0;
+            font-weight: bold;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hero {
+            background: url('vision-transformer-bg.jpg') no-repeat center center/cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        section {
+            padding: 3rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            position: relative;
+            font-size: 2rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            margin: 1rem auto;
+        }
+        
+        .intro-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .intro-text {
+            text-align: justify;
+        }
+        
+        .intro-image {
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 0 0 rgba(0,0,0,0.1);
+        }
+        
+        .intro-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .intro-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .research-focus {
+            background-color: var(--light-color);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .focus-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .focus-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .focus-card h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+        
+        .publications {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .pub-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .pub-item {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 1.5rem;
+            align-items: start;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pub-image {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .pub-image:hover {
+            transform: scale(1.03);
+        }
+        
+        .pub-content {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pub-item:last-child {
+            border-bottom: none;
+        }
+        
+        .pub-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .pub-authors {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pub-venue {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .pub-links {
+            margin-top: 0.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .demo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .demo-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .demo-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .demo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 1rem;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .intro-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                height: 50vh;
+            }
+
+            .pub-item {
+                grid-template-columns: 1fr;
+            }
+            
+            .pub-image {
+                max-width: 200px;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="intro-image">
+            <img src="./static/logo.png">
+        </div>
+        <div class="container">
+            <h1>Event-based Vision Group</h1>
+        </div>
+    </header>
+    
+    <!-- <div class="hero">
+        <div class="hero-content">
+            <h2>Redefining Visual Understanding with Transformer Architecture</h2>
+            <p>Exploring Next-Generation Visual Representation Learning Based on Self-Attention Mechanisms</p>
+        </div>
+    </div> -->
+    
+    <div class="container">
+        <section id="introduction">
+            <h2 class="section-title">Research Introduction</h2>
+            <div class="intro-content">
+                <div class="intro-text">
+                    <p>Event cameras, as a new generation of neuromorphic vision sensors, can asynchronously record pixel brightness changes with microsecond-level temporal resolution and high dynamic range, bringing new possibilities for dynamic scene perception and reconstruction. Compared to traditional frame-based imaging, event signals demonstrate unique advantages in high-speed motion, low-light, and high-contrast scenarios.</p>
+                    <p>Our research team has been exploring the frontier of Event-based vision since 2021, with main research topics including:</p>
+                    <ul>
+                        <li>Event-guided environmental perception</li>
+                        <li>Event-assisted physical modeling</li>
+                    </ul>
+                </div>
+                <div class="intro-image">
+                    <img src="./static/event.png">
+                </div>
+            </div>
+            
+            <div class="research-focus">
+                <h3>Core Research Focus</h3>
+                <div class="focus-grid">
+                    <div class="focus-card">
+                        <h3>Event-guided Environmental Perception</h3>
+                        <p>Exploring event camera-guided environmental perception, including ambient lighting, material properties, geometry, and semantic information perception to assist downstream tasks such as autonomous driving.</p>
+                    </div>
+                    <div class="focus-card">
+                        <h3>Event-assisted Physical Modeling</h3>
+                        <p>Researching physical modeling assisted by event cameras, including density, texture, and motion reconstruction of static/dynamic scenes to achieve high-fidelity modeling of the real world.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="publications">
+            <h2 class="section-title">Representative Research Achievements</h2>
+            <div class="publications">
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-image-container">
+                            <img src="./static/IJCAI25.png" alt="Dynamic token pruning illustration" class="pub-image">
+                        </div>
+                        <div class="pub-content">
+                            <div class="pub-title">EDyGS: Event Enhanced Dynamic 3D Radiance Fields from Blurry Monocular Video</div>
+                            <div class="pub-authors">Mengxu Lu*, Zehao Chen*, De Ma📧, Huajin Tang, Qian Zheng📧, Gang Pan.</div>
+                            <div class="pub-venue">IJCAI 2025</div>
+                            <ul>
+                                <li>Event-enhanced dynamic 3DGS model taking the input of motion-blurred monocular video. </li>
+                                <li>Reconstruct the motion mask field and separate static and dynamic regions. </li>
+                            </ul>
+                            <div class="pub-links">
+                                <a href="#" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
+                                <a href="#" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="pub-item">
+                        <div class="pub-image-container">
+                            <img src="./static/AAAI25-yan.png" alt="Dynamic token pruning illustration" class="pub-image">
+                        </div>
+                        <div class="pub-content">
+                            <div class="pub-title">EvSTVSR: Event Guided Space-Time Video Super-Resolution</div>
+                            <div class="pub-authors">Haojie Yan, Zhan Lu, Zehao Chen, De Ma📧, Huajin Tang, Qian Zheng📧, Gang Pan.</div>
+                            <div class="pub-venue">AAAI 2025</div>
+                            <ul>
+                                <li>Event-Guided space-time video super-resolution with fewer adjacent frames. </li>
+                                <li>Excel in handling large motion scenarios. </li>
+                            </ul>
+                            <div class="pub-links">
+                                <a href="#" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
+                                <a href="#" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="pub-item">
+                        <div class="pub-image-container">
+                            <img src="./static/AAAI25-chen2.png" alt="Dynamic token pruning illustration" class="pub-image">
+                        </div>
+                        <div class="pub-content">
+                            <div class="pub-title">EvHDR-GS: Event-guided HDR Video Reconstruction with 3D Gaussian Splatting</div>
+                            <div class="pub-authors">Zehao Chen, Zhan Lu, De Ma, Huajin Tang, Xudong Jiang, Qian Zheng📧, Gang Pan📧.</div>
+                            <div class="pub-venue">AAAI 2025</div>
+                            <ul>
+                                <li>Ensure consistent brightness for HDR video reconstruction. </li>
+                                <li>Achieve LDR-to-HDR transformation with single-exposure LDR frames. </li>
+                            </ul>
+                            <div class="pub-links">
+                                <a href="#" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
+                                <a href="#" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="pub-item">
+                        <div class="pub-image-container">
+                            <img src="./static/AAAI25-chen1.png" alt="Dynamic token pruning illustration" class="pub-image">
+                        </div>
+                        <div class="pub-content">
+                            <div class="pub-title">Building High Dynamic Range Radiance Fields with Single Exposure Images and Events</div>
+                            <div class="pub-authors">Zehao Chen, Zhanfeng Liao, De Ma, Huajin Tang, Qian Zheng📧, Gang Pan📧.</div>
+                            <div class="pub-venue">AAAI 2025</div>
+                            <ul>
+                                <li>Reconstruct HDR radiance field even if input images are degraded and are single-exposured. </li>
+                                <li>Reconstruct Camera Response Function (CRF) from single-exposure images. </li>
+                            </ul>
+                            <div class="pub-links">
+                                <a href="#" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
+                                <a href="#" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="pub-item">
+                        <div class="pub-image-container">
+                            <img src="./static/MM24.png" alt="Dynamic token pruning illustration" class="pub-image">
+                        </div>
+                        <div class="pub-content">
+                            <div class="pub-title">Event-ID: Intrinsic Decomposition Using an Event Camera</div>
+                            <div class="pub-authors">Zehao Chen*, Zhan Lu*, De Ma, Huajin Tang, Xudong Jiang, Qian Zheng📧, Gang Pan📧.</div>
+                            <div class="pub-venue">ACM MM 2024</div>
+                            <ul>
+                                <li>Event-based model establishes relationship between events and intrinsic components. </li>
+                                <li>Multi-view consistency of events to extract specular-related clues. </li>
+                                <li>Event-guided intrinsic decomposition framework enables relighting under extreme conditions. </li>
+                            </ul>
+                            <div class="pub-links">
+                                <a href="#" class="btn"><i class="fas fa-file-pdf"></i> Paper PDF</a>
+                                <a href="#" class="btn btn-outline"><i class="fas fa-code"></i> Code</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="collaboration">
+            <h2 class="section-title">Collaboration Opportunities</h2>
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <p>We welcome scholars, students, and industry partners interested in Event-based vision to contact us.</p>
+                <!-- <p>Currently open research directions include:</p>
+                <ul style="text-align: left; display: inline-block;">
+                    <li>Hardware-efficient implementation of Vision Transformers</li>
+                    <li>Cross-modal Transformer research</li>
+                    <li>Applications of Vision Transformers in medical image analysis</li>
+                </ul> -->
+                <p style="margin-top: 1.5rem;">Please contact: <a href="qianzheng@zju.edu.cn" style="color: var(--secondary-color);">qianzheng@zju.edu.cn</a></p>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Event-based vision group - ZJU-BMI-LAB </p>
+            <div style="margin-top: 1rem;">
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-github"></i></a>
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-twitter"></i></a>
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
